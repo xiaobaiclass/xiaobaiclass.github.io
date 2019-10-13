@@ -11,10 +11,7 @@
 
 
 
-二、Socket函数介绍1.创建套接字
-  int socket(int sockfd,struct sockaddr_in,int a);
-  @sockfd 文件描述符****
-  @addr ">
+二、Socket函数介绍1.创建套接字  12345int socket(int sockfd,struct sockaddr_in,int a);@sockfd 文件描述符****@addr   ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -435,12 +432,7 @@
 </ul>
 </li>
 </ol>
-<h2 id="二、Socket函数介绍"><a href="#二、Socket函数介绍" class="headerlink" title="二、Socket函数介绍"></a>二、Socket函数介绍</h2><p>1.<strong>创建套接字</strong></p>
-<pre class=" language-c"><code class="language-c">  <span class="token keyword">int</span> <span class="token function">socket</span><span class="token punctuation">(</span><span class="token keyword">int</span> sockfd<span class="token punctuation">,</span><span class="token keyword">struct</span> sockaddr_in<span class="token punctuation">,</span><span class="token keyword">int</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  @sockfd 文件描述符<span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span>
-  @addr   填充服务器地址
-  返回值<span class="token punctuation">:</span>
-       成功返回<span class="token number">0</span>，失败返回<span class="token operator">-</span><span class="token number">1</span></code></pre>
+<h2 id="二、Socket函数介绍"><a href="#二、Socket函数介绍" class="headerlink" title="二、Socket函数介绍"></a>二、Socket函数介绍</h2><p>1.<strong>创建套接字</strong><br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> sockfd,struct sockaddr_in,<span class="keyword">int</span> a)</span></span>;</span><br><span class="line">@sockfd 文件描述符****</span><br><span class="line">@addr   填充服务器地址</span><br><span class="line">返回值:</span><br><span class="line">     成功返回<span class="number">0</span>，失败返回<span class="number">-1</span></span><br></pre></td></tr></table></figure></p>
 <p>2.<strong>绑定地址</strong><br>    <code>c
     int bind(int sockfd,struct sockaddr_in addr,int addrlen);
     参数:
