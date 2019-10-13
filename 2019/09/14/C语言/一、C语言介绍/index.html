@@ -4,8 +4,17 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 小白课堂">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="小白课堂">
+    <meta name="description" content="一、C语言介绍
+运算符
+单目运算符
+
+
+
+二、Socket函数介绍1.创建套接字
+  int socket(int sockfd,struct sockaddr_in,int a);
+  @sockfd 文件描述符****
+  @addr ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +22,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Hello World | 小白课堂</title>
+    <title>小白课堂</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +270,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Hello World
+                        
                     </div>
                 </div>
             </div>
@@ -398,7 +407,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-09-12
+                    2019-09-14
                 </div>
 	
                 
@@ -420,15 +429,30 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+                <h2 id="一、C语言介绍"><a href="#一、C语言介绍" class="headerlink" title="一、C语言介绍"></a>一、C语言介绍</h2><ol>
+<li>运算符<ul>
+<li>单目运算符</li>
+</ul>
+</li>
+</ol>
+<h2 id="二、Socket函数介绍"><a href="#二、Socket函数介绍" class="headerlink" title="二、Socket函数介绍"></a>二、Socket函数介绍</h2><p>1.<strong>创建套接字</strong></p>
+<pre class=" language-c"><code class="language-c">  <span class="token keyword">int</span> <span class="token function">socket</span><span class="token punctuation">(</span><span class="token keyword">int</span> sockfd<span class="token punctuation">,</span><span class="token keyword">struct</span> sockaddr_in<span class="token punctuation">,</span><span class="token keyword">int</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  @sockfd 文件描述符<span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span>
+  @addr   填充服务器地址
+  返回值<span class="token punctuation">:</span>
+       成功返回<span class="token number">0</span>，失败返回<span class="token operator">-</span><span class="token number">1</span></code></pre>
+<p>2.<strong>绑定地址</strong><br>    <code>c
+    int bind(int sockfd,struct sockaddr_in addr,int addrlen);
+    参数:
+    @sockfd  socket文件描述符
+    @addr    绑定的地址
+    @addrlen 地址的长度
+    返回值:
+    成功返回0,失败返回-1</code> </p>
+<blockquote>
+<p><strong>注:</strong><br> 我不知道你在想什么<br> 奥阿斯顿发啦就离开<br> 阿斯顿发送地方。</p>
+</blockquote>
+<p> 3.<strong>设置套接字为监听模式</strong></p>
 
             </div>
             <hr/>
@@ -588,9 +612,9 @@
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《Hello World》
+                    《》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/12/C语言/hello-world/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/09/14/C语言/一、C语言介绍/" property="cc:attributionName"
                rel="cc:attributionURL">
                 Grass Teacher
             </a> 采用
@@ -634,6 +658,48 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/2019/10/01/C++语言/五子棋项目/五子棋项目-第一课/一、五子棋项目介绍/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一、五子棋项目介绍1.游戏规则  五子棋是我国古代传统的黑白棋种之一，黑白双方依次落子，任意一方在棋盘上形成横向、纵向、斜向的连续相同颜色的五颗棋子的一方为胜。
+2.五子棋界面显示此次项目将不使用任何图形库进行开发，所有显示的内容都是以字符
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C-语言/" class="post-category" target="_blank">
+                                    C++语言
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/2019/09/14/C++语言/README_CN/">
                     <div class="card-image">
                         
@@ -655,9 +721,9 @@ Material Design 设计
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -670,48 +736,6 @@ Material Design 设计
                         </span>
                     </div>
                 </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/09/12/C语言/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-12
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/C语言/" class="post-category" target="_blank">
-                                    C语言
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
                 
             </div>
         </div>
