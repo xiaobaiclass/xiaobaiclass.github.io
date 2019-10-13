@@ -584,22 +584,22 @@
 <p>注意:<br>字体颜色和背景颜色可以一起设置，例如: <strong>\033[44;37m</strong>表示将背景颜色设置为蓝色，字体颜色设置为白色。</p>
 </blockquote>
 <h3 id="4-代码演示"><a href="#4-代码演示" class="headerlink" title="4.代码演示"></a>4.代码演示</h3><p>在横坐标是15,纵坐标是10的地方显示背景颜色为红色，字体颜色为黄色，内容为 “Hello World”的C++语言代码如下:</p>
-<pre class=" language-c++"><code class="language-c++">#include <stdio.h>
+<pre class=" language-java"><code class="language-java">#include <span class="token operator">&lt;</span>stdio<span class="token punctuation">.</span>h<span class="token operator">></span>
 
-class A{
-    public:
-        int a;
-    private:
-        virtual void function();
+<span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+    <span class="token keyword">private</span><span class="token operator">:</span>
+        virtual <span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-};
-int main(void)
-{
-    fprintf(stderr,"\033[%d;%dH",10,15);//设置光标位置
-    fprintf(stderr,"\033[41;33mHello World\033[0m\n");//输出Hello World
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">fprintf</span><span class="token punctuation">(</span>stderr<span class="token punctuation">,</span><span class="token string">"\033[%d;%dH"</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置光标位置</span>
+    <span class="token function">fprintf</span><span class="token punctuation">(</span>stderr<span class="token punctuation">,</span><span class="token string">"\033[41;33mHello World\033[0m\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//输出Hello World</span>
 
-    return 0;
-}</code></pre>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <p><img src="/medias/15699269709146/hello.png" alt="HelloWorld"></p>
 <blockquote>
 <p>注意:<br>1.在终端上面，坐标系的原点为左上角，水平向右为X轴正方向坐标,垂直向下为Y轴正方向坐标<br>2.在输出完内容结束的时候，一定要记得使用<strong>\033[0m</strong>关闭属性，否则会影响终端正常输出<br>3.这里的stderr是标准出错，不带缓存，可以立即输出</p>
