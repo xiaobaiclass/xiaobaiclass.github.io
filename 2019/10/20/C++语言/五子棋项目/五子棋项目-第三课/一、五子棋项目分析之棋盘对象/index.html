@@ -491,24 +491,24 @@ Chess <span class="token operator">*</span>chess<span class="token punctuation">
 <span class="token punctuation">{</span>
     <span class="token keyword">return</span> chess<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">[</span>column<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token constant">NULL</span> <span class="token operator">?</span> true<span class="token punctuation">:</span>false<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<h3 id="五、棋盘类设计"><a href="#五、棋盘类设计" class="headerlink" title="五、棋盘类设计"></a>五、棋盘类设计</h3><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Chess.h"</span></span>
-<span class="token macro property">#<span class="token directive keyword">define</span> MAX_LINE   15</span>
-<span class="token macro property">#<span class="token directive keyword">define</span> MAX_COLUMN 15</span>
-<span class="token macro property">#<span class="token directive keyword">define</span> LINE_INTERVAL   4</span>
-<span class="token macro property">#<span class="token directive keyword">define</span> COLUMN_INTERVAL 2</span>
+<h3 id="五、棋盘类设计"><a href="#五、棋盘类设计" class="headerlink" title="五、棋盘类设计"></a>五、棋盘类设计</h3><pre class=" language-c,java"><code class="language-c,java">#include "Chess.h"
+#define MAX_LINE   15
+#define MAX_COLUMN 15
+#define LINE_INTERVAL   4
+#define COLUMN_INTERVAL 2
 
 class ChessBoard
-<span class="token punctuation">{</span>
-   public<span class="token punctuation">:</span>
-        <span class="token function">ChessBoard</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>filename <span class="token operator">=</span> <span class="token string">"ChessBoard.txt"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-        bool <span class="token function">isVaildPostion</span><span class="token punctuation">(</span><span class="token keyword">int</span> line<span class="token punctuation">,</span><span class="token keyword">int</span> column<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span> <span class="token function">placeChess</span><span class="token punctuation">(</span>Chess <span class="token operator">*</span>chess<span class="token punctuation">)</span><span class="token punctuation">;</span>
+{
+   public:
+        ChessBoard(const string &filename = "ChessBoard.txt");
+        void show(void) const;
+        bool isVaildPostion(int line,int column);
+        void placeChess(Chess *chess);
 
-    private<span class="token punctuation">:</span>
-        string filename<span class="token punctuation">;</span>
-        Chess <span class="token operator">*</span>chess<span class="token punctuation">[</span>MAX_LINE<span class="token punctuation">]</span><span class="token punctuation">[</span>MAX_COLUMN<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+    private:
+        string filename;
+        Chess *chess[MAX_LINE][MAX_COLUMN];
+};</code></pre>
 <h3 id="七、任务"><a href="#七、任务" class="headerlink" title="七、任务"></a>七、任务</h3><p>实现棋盘类，在屏幕上面显示棋盘，并在棋盘上的<code>第三行，第四列</code>显示白色棋子。</p>
 
             </div>
