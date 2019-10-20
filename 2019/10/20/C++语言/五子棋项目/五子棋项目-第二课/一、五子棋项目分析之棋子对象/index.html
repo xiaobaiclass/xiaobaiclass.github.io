@@ -448,33 +448,33 @@
 <li>每颗棋子都有自己的颜色，所以它应该包含颜色</li>
 </ul>
 <p>根据以上特点，棋子类设计如下:</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Chess</span><span class="token punctuation">{</span>
-    <span class="token keyword">public</span><span class="token operator">:</span>
-        <span class="token function">Chess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> <span class="token function">getX</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> <span class="token function">getY</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span> <span class="token function">setX</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span> <span class="token function">setY</span><span class="token punctuation">(</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        string <span class="token function">getColor</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span>   <span class="token function">setColor</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        virtual <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span><span class="token operator">:</span>
-        <span class="token keyword">int</span> x<span class="token punctuation">;</span>
-        <span class="token keyword">int</span> y<span class="token punctuation">;</span>
-        string color<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<pre class=" language-C++"><code class="language-C++">class Chess{
+    public:
+        Chess(int x,int y,const string &color);
+        int getX(void) const;
+        int getY(void) const;
+        void setX(int x);
+        void setY(int y);
+        string getColor(void) const;
+        void   setColor(const string &color);
+        virtual void show(void) const = 0;
+    private:
+        int x;
+        int y;
+        string color;
+};</code></pre>
 <h3 id="三、黑棋类"><a href="#三、黑棋类" class="headerlink" title="三、黑棋类"></a>三、黑棋类</h3><p>黑棋类应该继承棋子类，然后实现棋子类的<code>void show(void) const</code>函数，在这个函数中显示黑色棋子。设计如下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">BlackChess</span><span class="token operator">:</span><span class="token keyword">public</span> Chess<span class="token punctuation">{</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token function">BlackChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<pre class=" language-C++"><code class="language-C++">class BlackChess:public Chess{
+public:
+    BlackChess(int x,int y,const string &color);
+    void show(void) const;
+};</code></pre>
 <h3 id="四、白棋类"><a href="#四、白棋类" class="headerlink" title="四、白棋类"></a>四、白棋类</h3><p>白棋类应该继承棋子类，然后实现棋子类的<code>void show(void) const</code>函数，在这个函数中显示白色棋子。设计如下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">BlackChess</span><span class="token operator">:</span><span class="token keyword">public</span> Chess<span class="token punctuation">{</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token function">BlackChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<pre class=" language-C++"><code class="language-C++">class BlackChess:public Chess{
+public:
+    BlackChess(int x,int y,const string &color);
+    void show(void) const;
+};</code></pre>
 <blockquote>
 <p><strong>注意：</strong><br>在实现show()函数的时候，使用VT100控制码进行颜色输出。</p>
 </blockquote>
@@ -486,13 +486,13 @@
 <li>清屏</li>
 </ul>
 <p>类设计如下:</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">VT100</span><span class="token punctuation">{</span>
-    <span class="token keyword">public</span><span class="token operator">:</span>
-        <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">setPostion</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">clearScreen</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">static</span> <span class="token keyword">void</span>  <span class="token function">drawBlackChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">static</span> <span class="token keyword">void</span>  <span class="token function">drawWhiteChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<pre class=" language-C++"><code class="language-C++">class VT100{
+    public:
+        static void setPostion(int x,int y);
+        static void clearScreen(void);
+        static void  drawBlackChess(int x,int y);
+        static void  drawWhiteChess(int x,int y);
+};</code></pre>
 <h3 id="六、任务"><a href="#六、任务" class="headerlink" title="六、任务"></a>六、任务</h3><p>实现黑棋类、白棋类、VT00类，并在屏幕上面输出黑色棋子和白色棋子</p>
 
             </div>
