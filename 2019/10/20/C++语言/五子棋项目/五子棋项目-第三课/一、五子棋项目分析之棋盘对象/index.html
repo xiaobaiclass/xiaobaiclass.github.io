@@ -5,13 +5,13 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="小白课堂">
-    <meta name="description" content="一、五子棋项目分析之棋子对象五子棋游戏中只有黑白两种棋子，两种棋子显示的颜色不一样即黑白两种棋子显示方法实现是不一样的。从面向抽象编程的角度，我们设计出三个类。
+    <meta name="description" content="一、五子棋项目分析之棋盘对象棋盘对象只有一个，我们可以使用单例模式来设计，它应该至少具备以下功能
 
-棋子类
-黑棋类
-白棋类
+在屏幕上面显示棋盘
+存放棋子
+落子有效位置判定
 
-其中棋子类是抽象类，黑棋类和白棋类都继承了棋子类。">
+二、在屏幕上面显示棋盘棋盘已经在ChessBoard.txt文件中存放，只需要将这个文件中">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -267,7 +267,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=163796701,840147906&fm=26&gp=0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -382,29 +382,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/五子棋游戏/" target="_blank">
-                                <span class="chip bg-color">五子棋游戏</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fa fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/C-语言/" class="post-category" target="_blank">
-                                C++语言
-                            </a>
-                        
-                            <a href="/categories/C-语言/五子棋项目/" class="post-category" target="_blank">
-                                五子棋项目
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -434,66 +417,82 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="一、五子棋项目分析之棋子对象"><a href="#一、五子棋项目分析之棋子对象" class="headerlink" title="一、五子棋项目分析之棋子对象"></a>一、五子棋项目分析之棋子对象</h3><p>五子棋游戏中只有黑白两种棋子，两种棋子显示的颜色不一样即<code>黑白两种棋子显示方法实现是不一样的</code>。从面向抽象编程的角度，我们设计出三个类。</p>
+                <h3 id="一、五子棋项目分析之棋盘对象"><a href="#一、五子棋项目分析之棋盘对象" class="headerlink" title="一、五子棋项目分析之棋盘对象"></a>一、五子棋项目分析之棋盘对象</h3><p>棋盘对象只有一个，我们可以使用<code>单例模式</code>来设计，它应该至少具备以下功能</p>
+<ol>
+<li>在屏幕上面显示棋盘</li>
+<li>存放棋子</li>
+<li>落子有效位置判定</li>
+</ol>
+<h3 id="二、在屏幕上面显示棋盘"><a href="#二、在屏幕上面显示棋盘" class="headerlink" title="二、在屏幕上面显示棋盘"></a>二、在屏幕上面显示棋盘</h3><p>棋盘已经在<code>ChessBoard.txt</code>文件中存放，只需要将这个文件中的棋盘读取出来然后在终端上面显示就可以了。</p>
+<pre class=" language-c++"><code class="language-c++">
+char buf[1024];
+FILE *fp;
+
+fp = fopen("ChessBoard.txt","r");
+if(fp == NULL){
+    fprintf(stderr,"Fail to open ChessBoard.txt : %s\n",strerror(errno));
+    return -1;
+}
+
+while(fgets(buf,sizeof(buf),fp) != NULL){
+    fputs(buf,stderr);
+}
+
+fclose(fp);</code></pre>
+<p>棋盘格式如下:<br><img src="medias/15700848644432/789.png" alt></p>
+<p>从上图可以知道，五子棋的棋盘有<code>15行15列</code>构成。我们可以知道如下信息:</p>
 <ul>
-<li>棋子类</li>
-<li>黑棋类</li>
-<li>白棋类</li>
+<li>每一行有<code>57</code>个字符，每一列有<code>29</code>个字符</li>
+<li>横向移动只需要将当前x坐标 <code>+/- 4</code>就可以了</li>
+<li>纵向移动只需要将当前y坐标 <code>+/- 2</code>就可以了</li>
 </ul>
-<p>其中棋子类是抽象类，黑棋类和白棋类都继承了棋子类。</p>
-<h3 id="二、棋子类"><a href="#二、棋子类" class="headerlink" title="二、棋子类"></a>二、棋子类</h3><p>关于棋子类我们可以做如下几点思考:</p>
-<ul>
-<li>由于黑棋和白棋的显示是不同的，棋子类的显示方法是不知道如何实现的，所以它是一个抽象类。</li>
-<li>每棵棋子在棋盘的不同位置存放，所以它应该包含棋子在屏幕上面的具体坐标</li>
-<li>每颗棋子都有自己的颜色，所以它应该包含颜色</li>
-</ul>
-<p>根据以上特点，棋子类设计如下:</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Chess</span><span class="token punctuation">{</span>
-    <span class="token keyword">public</span><span class="token operator">:</span>
-        <span class="token function">Chess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> <span class="token function">getX</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> <span class="token function">getY</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span> <span class="token function">setX</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span> <span class="token function">setY</span><span class="token punctuation">(</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        string <span class="token function">getColor</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span>   <span class="token function">setColor</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        virtual <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span><span class="token operator">:</span>
-        <span class="token keyword">int</span> x<span class="token punctuation">;</span>
-        <span class="token keyword">int</span> y<span class="token punctuation">;</span>
-        string color<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<h3 id="三、黑棋类"><a href="#三、黑棋类" class="headerlink" title="三、黑棋类"></a>三、黑棋类</h3><p>黑棋类应该继承棋子类，然后实现棋子类的<code>void show(void) const</code>函数，在这个函数中显示黑色棋子。设计如下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">BlackChess</span><span class="token operator">:</span><span class="token keyword">public</span> Chess<span class="token punctuation">{</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token function">BlackChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<h3 id="四、白棋类"><a href="#四、白棋类" class="headerlink" title="四、白棋类"></a>四、白棋类</h3><p>白棋类应该继承棋子类，然后实现棋子类的<code>void show(void) const</code>函数，在这个函数中显示白色棋子。设计如下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">BlackChess</span><span class="token operator">:</span><span class="token keyword">public</span> Chess<span class="token punctuation">{</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token function">BlackChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<blockquote>
-<p><strong>注意：</strong><br>在实现show()函数的时候，使用VT100控制码进行颜色输出。</p>
-</blockquote>
-<h3 id="五、VT100类"><a href="#五、VT100类" class="headerlink" title="五、VT100类"></a>五、VT100类</h3><p>由于在项目中我们经常要用到VT100终端控制码，所以这里我们设计一个VT100的类，它包含以下<strong>静态</strong>方法：</p>
-<ul>
-<li>设置光标位置</li>
-<li>输出黑色棋子</li>
-<li>输出白色棋子</li>
-<li>清屏</li>
-</ul>
-<p>类设计如下:</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">VT100</span><span class="token punctuation">{</span>
-    <span class="token keyword">public</span><span class="token operator">:</span>
-        <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">setPostion</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">clearScreen</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">static</span> <span class="token keyword">void</span>  <span class="token function">drawBlackChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">static</span> <span class="token keyword">void</span>  <span class="token function">drawWhiteChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<h3 id="六、任务"><a href="#六、任务" class="headerlink" title="六、任务"></a>六、任务</h3><p>实现黑棋类、白棋类、VT00类，并在屏幕上面输出黑色棋子和白色棋子</p>
+<p><strong>问:知道棋子的x,y的屏幕坐标，如何换算成这个棋子在棋盘上面多少行多少列?</strong></p>
+<p>答 :通过观察，我们发现横坐标是8,纵坐标是6（<code>横纵坐标均从0开始</code>），它实际是第3行，<br>    第2列(<code>行号和列号均从0开始</code>),所以行号<code>line = y / 2</code> , 列号<code>column = x / 4</code>。</p>
+<h3 id="三、存放棋子"><a href="#三、存放棋子" class="headerlink" title="三、存放棋子"></a>三、存放棋子</h3><p>整个棋盘有<code>15行和15列</code>构成，我们把每个棋子都看成是一个对象，我们只需要记录这些对象的首地址就可以了，可以用一个<code>二维的指针数组</code>存放。定义如下:</p>
+<pre class=" language-c++"><code class="language-c++">#define MAX_LINE   15
+#define MAX_COLUMN 15
+Chess *chess[MAX_LINE][MAX_COLUMN];</code></pre>
+<p>刚开始的棋盘上面没有任何棋子，所以我们将chess的二维数组的值全部初始化为<code>NULL</code></p>
+<pre class=" language-c++"><code class="language-c++">for(int i = 0;i < MAX_Line;i ++){
+    for(int j = 0;j < MAX_COLUMN;j ++){
+        chess[i][j] = NULL;
+    }
+}</code></pre>
+<p>我们提供一个函数接口来存放棋子</p>
+<pre class=" language-c++"><code class="language-c++">#define LINE_INTERVAL   4
+#define COLUMN_INTERVAL 2
+void placeChess(Chess *chess)
+{
+    int line      = chess->getY()/COLUMN_INTERVAL;
+    int column    = chess->getX()/LINE_INTERVAL;
+    chess[line][column] = chess;
+    chess->show();
+    return;
+}</code></pre>
+<h3 id="四、落子有效位置判定"><a href="#四、落子有效位置判定" class="headerlink" title="四、落子有效位置判定"></a>四、落子有效位置判定</h3><p>如果落子位置已经有棋子了则返回<code>false</code>,如果落子位置没有棋子则返回<code>true</code>。</p>
+<pre class=" language-c++"><code class="language-c++">bool isValidPostion(int line,int column)
+{
+    return chess[line][column] == NULL ? true:false;
+}</code></pre>
+<h3 id="五、棋盘类设计"><a href="#五、棋盘类设计" class="headerlink" title="五、棋盘类设计"></a>五、棋盘类设计</h3><pre class=" language-c++"><code class="language-c++">#include "Chess.h"
+#define MAX_LINE   15
+#define MAX_COLUMN 15
+#define LINE_INTERVAL   4
+#define COLUMN_INTERVAL 2
+
+class ChessBoard
+{
+   public:
+        ChessBoard(const string &filename = "ChessBoard.txt");
+        void show(void) const;
+        bool isVaildPostion(int line,int column);
+        void placeChess(Chess *chess);
+
+    private:
+        string filename;
+        Chess *chess[MAX_LINE][MAX_COLUMN];
+};</code></pre>
+<h3 id="七、任务"><a href="#七、任务" class="headerlink" title="七、任务"></a>七、任务</h3><p>实现棋盘类，在屏幕上面显示棋盘，并在棋盘上的<code>第三行，第四列</code>显示白色棋子。</p>
 
             </div>
             <hr/>
@@ -655,7 +654,7 @@
                   property="dct:title" rel="dct:type">
                     《》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/10/20/C++语言/五子棋项目/五子棋项目-第二课/一、五子棋项目分析之棋子对象/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/10/20/C++语言/五子棋项目/五子棋项目-第三课/一、五子棋项目分析之棋盘对象/" property="cc:attributionName"
                rel="cc:attributionURL">
                 XiaoBai Teacher
             </a> 采用
@@ -695,9 +694,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/10/20/C++语言/五子棋项目/五子棋项目-第三课/一、五子棋项目分析之棋盘对象/">
                     <div class="card-image">
@@ -721,9 +721,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-user fa-fw"></i>
@@ -732,6 +732,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -742,10 +743,10 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/10/20/C++语言/五子棋项目/五子棋项目-第一课/一、五子棋项目介绍/">
+                <a href="/2019/10/20/C++语言/五子棋项目/五子棋项目-第二课/一、五子棋项目分析之棋子对象/">
                     <div class="card-image">
                         
-                        <img src="/medias/15699269709146/%E6%B8%B8%E6%88%8F%E6%95%88%E6%9E%9C.png" class="responsive-img" alt="">
+                        <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=163796701,840147906&amp;fm=26&amp;gp=0.jpg" class="responsive-img" alt="">
                         
                         <span class="card-title"></span>
                     </div>
@@ -753,8 +754,13 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一、五子棋项目介绍1.游戏规则  五子棋是我国古代传统的黑白棋种之一，黑白双方依次落子，任意一方在棋盘上形成横向、纵向、斜向的连续相同颜色的五颗棋子的一方为胜。
-2.五子棋界面显示此次项目将不使用任何图形库进行开发，所有显示的内容都是以字符
+                            一、五子棋项目分析之棋子对象五子棋游戏中只有黑白两种棋子，两种棋子显示的颜色不一样即黑白两种棋子显示方法实现是不一样的。从面向抽象编程的角度，我们设计出三个类。
+
+棋子类
+黑棋类
+白棋类
+
+其中棋子类是抽象类，黑棋类和白棋类都继承了棋子类。
                         
                     </div>
                     <div class="publish-info">
