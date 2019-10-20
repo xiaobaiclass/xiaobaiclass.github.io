@@ -476,12 +476,12 @@ Chess <span class="token operator">*</span>chess<span class="token punctuation">
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <p>我们提供一个函数接口来存放棋子</p>
-<pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">define</span> LINE_INTERVAL   4</span>
-<span class="token macro property">#<span class="token directive keyword">define</span> COLUMN_INTERVAL 2</span>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">define</span> LINE_INTERVAL   2</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> COLUMN_INTERVAL 4</span>
 <span class="token keyword">void</span> <span class="token function">placeChess</span><span class="token punctuation">(</span>Chess <span class="token operator">*</span>chess<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> line      <span class="token operator">=</span> chess<span class="token operator">-</span><span class="token operator">></span><span class="token function">getY</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span>COLUMN_INTERVAL<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> column    <span class="token operator">=</span> chess<span class="token operator">-</span><span class="token operator">></span><span class="token function">getX</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span>LINE_INTERVAL<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> line      <span class="token operator">=</span> chess<span class="token operator">-</span><span class="token operator">></span><span class="token function">getY</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span>LINE_INTERVAL<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> column    <span class="token operator">=</span> chess<span class="token operator">-</span><span class="token operator">></span><span class="token function">getX</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span>COLUMN_INTERVAL<span class="token punctuation">;</span>
     chess<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">[</span>column<span class="token punctuation">]</span> <span class="token operator">=</span> chess<span class="token punctuation">;</span>
     chess<span class="token operator">-</span><span class="token operator">></span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span><span class="token punctuation">;</span>
@@ -494,8 +494,8 @@ Chess <span class="token operator">*</span>chess<span class="token punctuation">
 <h3 id="五、棋盘类设计"><a href="#五、棋盘类设计" class="headerlink" title="五、棋盘类设计"></a>五、棋盘类设计</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Chess.h"</span></span>
 <span class="token macro property">#<span class="token directive keyword">define</span> MAX_LINE   15</span>
 <span class="token macro property">#<span class="token directive keyword">define</span> MAX_COLUMN 15</span>
-<span class="token macro property">#<span class="token directive keyword">define</span> LINE_INTERVAL   4</span>
-<span class="token macro property">#<span class="token directive keyword">define</span> COLUMN_INTERVAL 2</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> LINE_INTERVAL   2</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> COLUMN_INTERVAL 4</span>
 
 <span class="token keyword">class</span> <span class="token class-name">ChessBoard</span>
 <span class="token punctuation">{</span>
