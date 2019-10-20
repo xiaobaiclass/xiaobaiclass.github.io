@@ -29,7 +29,8 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -593,7 +594,7 @@
 <p><code>注意</code>:<br>字体颜色和背景颜色可以一起设置，例如: <code>\033[44;37m</code>表示将背景颜色设置为蓝色，字体颜色设置为白色。</p>
 </blockquote>
 <h3 id="4-代码演示"><a href="#4-代码演示" class="headerlink" title="4.代码演示"></a>4.代码演示</h3><p>在横坐标是15,纵坐标是10的地方显示背景颜色为红色，字体颜色为黄色，内容为 “Hello World”的C++语言代码如下:</p>
-<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
 
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -601,7 +602,7 @@
     <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span><span class="token string">"\033[41;33mHello World\033[0m\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//输出Hello World</span>
 
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="/medias/15699269709146/hello.png" alt></p>
 <blockquote>
 <p><code>注意</code>:<br>1.在终端上面，坐标系的原点为左上角，水平向右为X轴正方向坐标,垂直向下为Y轴正方向坐标<br>2.在输出完内容结束的时候，一定要记得使用<code>\033[0m</code>关闭属性，否则会影响终端正常输出<br>3.这里的<code>stderr</code>是标准出错，不带缓存，可以立即输出</p>
