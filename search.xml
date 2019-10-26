@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title></title>
-    <url>/2019/10/26/C++%E8%AF%AD%E8%A8%80/%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE/%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E5%9B%9B%E8%AF%BE/%E4%B8%80%E3%80%81%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE%E4%B9%8B%E7%8E%A9%E5%AE%B6%E5%AF%B9%E8%B1%A1%E5%88%86%E6%9E%90/</url>
+    <url>/2019/10/26/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-si-ke/yi-wu-zi-qi-xiang-mu-zhi-wan-jia-dui-xiang-fen-xi/</url>
     <content><![CDATA[<h3 id="一、五子棋项目之玩家对象分析"><a href="#一、五子棋项目之玩家对象分析" class="headerlink" title="一、五子棋项目之玩家对象分析"></a>一、五子棋项目之玩家对象分析</h3><p>五子棋游戏中有两个玩家，一个玩家下黑旗，一个玩家下白旗。每个玩家至少包含以下成员:</p>
 <ul>
 <li>玩家的名字</li>
@@ -49,7 +49,7 @@
   </entry>
   <entry>
     <title></title>
-    <url>/2019/10/05/C++%E8%AF%AD%E8%A8%80/%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE/%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%B8%89%E8%AF%BE/%E4%B8%80%E3%80%81%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E4%B9%8B%E6%A3%8B%E7%9B%98%E5%AF%B9%E8%B1%A1/</url>
+    <url>/2019/10/05/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-san-ke/yi-wu-zi-qi-xiang-mu-fen-xi-zhi-qi-pan-dui-xiang/</url>
     <content><![CDATA[<h3 id="一、五子棋项目分析之棋盘对象"><a href="#一、五子棋项目分析之棋盘对象" class="headerlink" title="一、五子棋项目分析之棋盘对象"></a>一、五子棋项目分析之棋盘对象</h3><p>棋盘对象只有一个，我们可以使用<code>单例模式</code>来设计，它应该至少具备以下功能</p>
 <ol>
 <li>在屏幕上面显示棋盘</li>
@@ -137,7 +137,7 @@ Chess <span class="token operator">*</span>chess<span class="token punctuation">
   </entry>
   <entry>
     <title></title>
-    <url>/2019/10/03/C++%E8%AF%AD%E8%A8%80/%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE/%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%BA%8C%E8%AF%BE/%E4%B8%80%E3%80%81%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E4%B9%8B%E6%A3%8B%E5%AD%90%E5%AF%B9%E8%B1%A1/</url>
+    <url>/2019/10/03/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-er-ke/yi-wu-zi-qi-xiang-mu-fen-xi-zhi-qi-zi-dui-xiang/</url>
     <content><![CDATA[<h3 id="一、五子棋项目分析之棋子对象"><a href="#一、五子棋项目分析之棋子对象" class="headerlink" title="一、五子棋项目分析之棋子对象"></a>一、五子棋项目分析之棋子对象</h3><p>五子棋游戏中只有黑白两种棋子，两种棋子显示的颜色不一样即<code>黑白两种棋子显示方法实现是不一样的</code>。从面向抽象编程的角度，我们设计出三个类。</p>
 <ul>
 <li>棋子类</li>
@@ -209,7 +209,7 @@ Chess <span class="token operator">*</span>chess<span class="token punctuation">
   </entry>
   <entry>
     <title></title>
-    <url>/2019/10/01/C++%E8%AF%AD%E8%A8%80/%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE/%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%B8%80%E8%AF%BE/%E4%B8%80%E3%80%81%E4%BA%94%E5%AD%90%E6%A3%8B%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D/</url>
+    <url>/2019/10/01/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-yi-ke/yi-wu-zi-qi-xiang-mu-jie-shao/</url>
     <content><![CDATA[<h2 id="一、五子棋项目介绍"><a href="#一、五子棋项目介绍" class="headerlink" title="一、五子棋项目介绍"></a>一、五子棋项目介绍</h2><h3 id="1-游戏规则"><a href="#1-游戏规则" class="headerlink" title="1.游戏规则"></a>1.游戏规则</h3><p>  五子棋是我国古代传统的黑白棋种之一，黑白双方依次落子，任意一方在棋盘上形成<code>横向、纵向、斜向</code>的连续相同颜色的五颗棋子的一方为胜。</p>
 <h3 id="2-五子棋界面显示"><a href="#2-五子棋界面显示" class="headerlink" title="2.五子棋界面显示"></a>2.五子棋界面显示</h3><p>此次项目将不使用任何图形库进行开发，所有显示的内容都是以字符的形式进行显示。为了让整个五子棋项目显示的界面更漂亮，这里我们使用<code>VT100终端控制码</code>进行输出。效果如下:</p>
 <p><img src="/medias/15699269709146/%E6%B8%B8%E6%88%8F%E6%95%88%E6%9E%9C.png" alt></p>
