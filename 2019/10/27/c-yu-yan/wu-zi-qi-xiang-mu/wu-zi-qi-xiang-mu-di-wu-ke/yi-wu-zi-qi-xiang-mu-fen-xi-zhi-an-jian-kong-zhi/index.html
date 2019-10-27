@@ -5,14 +5,11 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="小白课堂">
-    <meta name="description" content="一、五子棋项目之玩家对象分析五子棋游戏中有两个玩家，一个玩家下黑旗，一个玩家下白旗。每个玩家至少包含以下成员:
+    <meta name="description" content="一、五子棋项目分析之按键控制在五子棋项目中，我们通过W/A/S/D/Space五个按键来做控制，这五个按键的功能如下:
 
-玩家的名字
-玩家下棋的棋子颜色
-在棋盘落子的方法
-
-
-注意:指定位置落子的方法，黑白棋手的实现应该不同。下黑旗的玩家在指定位置">
+W     向前移动，将当前y轴坐标 - 2
+S     向后移动, 将当前y轴坐标 + 2
+A     向左移动, ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -268,7 +265,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1572109821358&di=d09ad819ecb597803901297c9cbec260&imgtype=0&src=http%3A%2F%2Fi0.letvimg.com%2Flc05_qmt%2F201706%2F23%2F11%2F35%2Fb44dc3ed-7205-44d2-8878-dfd671314f55.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('medias/15701657445284/abc.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -413,7 +410,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-10-26
+                    2019-10-27
                 </div>
 	
                 
@@ -435,41 +432,135 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="一、五子棋项目之玩家对象分析"><a href="#一、五子棋项目之玩家对象分析" class="headerlink" title="一、五子棋项目之玩家对象分析"></a>一、五子棋项目之玩家对象分析</h3><p>五子棋游戏中有两个玩家，一个玩家下黑旗，一个玩家下白旗。每个玩家至少包含以下成员:</p>
+                <h3 id="一、五子棋项目分析之按键控制"><a href="#一、五子棋项目分析之按键控制" class="headerlink" title="一、五子棋项目分析之按键控制"></a>一、五子棋项目分析之按键控制</h3><p>在五子棋项目中，我们通过<code>W/A/S/D/Space</code>五个按键来做控制，这五个按键的功能如下:</p>
 <ul>
-<li>玩家的名字</li>
-<li>玩家下棋的棋子颜色</li>
-<li>在棋盘落子的方法</li>
+<li>W     向前移动，将当前y轴坐标 - 2</li>
+<li>S     向后移动, 将当前y轴坐标 + 2</li>
+<li>A     向左移动, 将当前x轴坐标 - 4</li>
+<li>D     向右移动, 将当前x轴坐标 + 4</li>
+<li>Space 空格键  , 用来控制落子</li>
 </ul>
-<blockquote>
-<p><code>注意</code>:<br>指定位置落子的方法，黑白棋手的实现应该不同。下<code>黑旗的玩家</code>在指定位置落子的时候，落下的是<code>黑色棋子</code>。<code>下白旗的玩家</code>在指定位置落子的时候，落下的是<code>白色棋子</code>。</p>
-</blockquote>
-<h3 id="二、玩家类设计"><a href="#二、玩家类设计" class="headerlink" title="二、玩家类设计"></a>二、玩家类设计</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">AbstractPlayer</span><span class="token punctuation">{</span>
+<h3 id="二、Linux下终端属性设置"><a href="#二、Linux下终端属性设置" class="headerlink" title="二、Linux下终端属性设置"></a>二、Linux下终端属性设置</h3><ol>
+<li>获取终端属性</li>
+</ol>
+<pre class=" language-cpp"><code class="language-cpp">    <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;termios.h></span></span>
+    <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+    <span class="token keyword">int</span> <span class="token function">tcgetattr</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">struct</span> termios <span class="token operator">*</span>termios_p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    参数<span class="token operator">:</span>
+         @fd        文件描述符，我们这里针对标准输入进行设置，所以是<span class="token number">0</span>
+         @termios_p 用来存放终端属性的结构体
+    返回值<span class="token operator">:</span>
+        成功返回<span class="token number">0</span><span class="token punctuation">,</span>失败返回<span class="token operator">-</span><span class="token number">1</span></code></pre>
+<ol start="2">
+<li>设置终端属性</li>
+</ol>
+<pre class=" language-cpp"><code class="language-cpp">    <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;termios.h></span></span>
+    <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+    <span class="token keyword">int</span> <span class="token function">tcsetattr</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">int</span> optional_actions<span class="token punctuation">,</span><span class="token keyword">const</span> <span class="token keyword">struct</span> termios <span class="token operator">*</span>termios_p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    参数<span class="token operator">:</span>
+        @fd               文件描述符，我们这里针对标准输入进行设置，所以是<span class="token number">0</span>
+        @optional_actions TCSANOW<span class="token operator">:</span>the change occurs immediastely
+        @termios_p        用来存放终端属性的结构体
+    返回值<span class="token operator">:</span>
+        成功返回<span class="token number">0</span><span class="token punctuation">,</span>失败返回<span class="token operator">-</span><span class="token number">1</span></code></pre>
+<p>我们这里主要是想在输入的时候，关闭回显和回车确认键，只需要做如下设置就可以了</p>
+<pre class=" language-cpp"><code class="language-cpp">    <span class="token keyword">struct</span> termios attr<span class="token punctuation">;</span>
+    <span class="token function">tcgetattr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>attr<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//获取属性</span>
+    attr<span class="token punctuation">.</span>c_lflag <span class="token operator">&amp;</span><span class="token operator">=</span> <span class="token operator">~</span><span class="token punctuation">(</span>ICANON <span class="token operator">|</span> ECHO<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//关闭回车确认和回显</span>
+    <span class="token function">tcsetattr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>TCSANOW<span class="token punctuation">,</span><span class="token operator">&amp;</span>attr<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置属性</span></code></pre>
+<ul>
+<li><code>ICANON</code> - Enable canonical(规范) mode</li>
+<li><code>ECHO</code>   - Echo input characters</li>
+</ul>
+<h3 id="三、光标类设计"><a href="#三、光标类设计" class="headerlink" title="三、光标类设计"></a>三、光标类设计</h3><p>当我们通过键盘控制方向和落子的时都需要实时知道当前光标在棋盘上的位置，棋盘格式如下:<br><img src="medias/15700848644432/789.png" alt="789"></p>
+<p>从上图可以知道，五子棋的棋盘有<code>15行15列</code>构成。我们可以知道如下信息:</p>
+<ul>
+<li>每一行有<code>57</code>个字符，每一列有<code>29</code>个字符</li>
+<li>横向移动只需要将当前<code>x坐标 +/- 4</code>就可以了</li>
+<li>纵向移动只需要将当前<code>y坐标 +/- 2</code>就可以了</li>
+</ul>
+<p><strong>问:棋盘中心点坐标是多少?</strong></p>
+<p>答 :棋盘上面<code>最大横坐标是56</code>,<code>最小横坐标是0</code>,所以中心点横坐标是(56 - 0) / 2 + 1 = 24<br>    棋盘上面<code>最大纵坐标是26</code>,<code>最小纵坐标是0</code>,所以中心点纵坐标是(28 - 0) / 2 + 1 = 15</p>
+<p>这里我们设计一个光标类，用它来记录和改变当前光标的x和y值,设计如下:</p>
+<pre class=" language-cpp"><code class="language-cpp">    <span class="token macro property">#<span class="token directive keyword">define</span> MAX_X 56</span>
+    <span class="token macro property">#<span class="token directive keyword">define</span> MIN_X 0</span>
+    <span class="token macro property">#<span class="token directive keyword">define</span> MAX_Y 28</span>
+    <span class="token macro property">#<span class="token directive keyword">define</span> MIN_Y 0</span>
+
+    <span class="token keyword">class</span> <span class="token class-name">Cursor</span><span class="token punctuation">{</span>
+        <span class="token keyword">public</span><span class="token operator">:</span>
+            <span class="token keyword">int</span> <span class="token function">getCurX</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> <span class="token function">getCurY</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">void</span> <span class="token function">moveUp</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+            <span class="token keyword">void</span> <span class="token function">moveDown</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">void</span> <span class="token function">moveLeft</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">void</span> <span class="token function">moveRight</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+            <span class="token keyword">void</span> <span class="token function">moveCenter</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">private</span><span class="token operator">:</span>
+            <span class="token keyword">int</span> curX<span class="token punctuation">;</span>
+            <span class="token keyword">int</span> curY<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<h3 id="四、按键类设计"><a href="#四、按键类设计" class="headerlink" title="四、按键类设计"></a>四、按键类设计</h3><p>前面我们通过<code>switch-case</code>的形式处理<code>w/a/s/d/space</code>按键，每个按键按下的时候，需要做的事情是不一样的。我们也应该考虑到在后期的时候，可能还需要其他按键以适应其他的功能。例如:按下某个按键进行毁棋操作。这样我们还需要修改代码在<code>switch-case</code>语句，添加新的按键，这很明显不符号软件设计的<code>开闭原则</code>。</p>
+<p>这里我们使用<code>策略设计模式</code>的思想，将每个按键需要做的事情在对应的类中实现，这样在后期添加新的按键的时候，我们只需要添加一个新的按键类就可以了，而不需要修改以前的代码。设计如下:</p>
+<p><img src="medias/15701657445284/abc.png" alt="ab"></p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Key</span><span class="token punctuation">{</span>
     <span class="token keyword">public</span><span class="token operator">:</span>
-        <span class="token function">Player</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>name<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>chessColor<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span> <span class="token function">setChessColor</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        string <span class="token function">getName</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-        string <span class="token function">getChessColor</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-        <span class="token keyword">virtual</span> <span class="token keyword">bool</span> <span class="token function">placeChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token function">Key</span><span class="token punctuation">(</span><span class="token keyword">int</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> <span class="token function">getValue</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+        <span class="token keyword">void</span> <span class="token function">setValue</span><span class="token punctuation">(</span><span class="token keyword">int</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">virtual</span> <span class="token keyword">bool</span> <span class="token function">operation</span><span class="token punctuation">(</span>Cursor <span class="token operator">&amp;</span>cursor<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
     <span class="token keyword">private</span><span class="token operator">:</span>
-        string name<span class="token punctuation">;</span>
-        string chessColor<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> value<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>这里的<code>placeChess</code>是一个纯虚函数，在具体的子类中实现。</p>
-<h3 id="三、-下白旗的玩家类设计"><a href="#三、-下白旗的玩家类设计" class="headerlink" title="三、 下白旗的玩家类设计"></a>三、 下白旗的玩家类设计</h3><pre class=" language-cpp"><code class="language-cpp">    <span class="token keyword">class</span> <span class="token class-name">WhitePlayer</span><span class="token operator">:</span><span class="token keyword">public</span> AbstractPlayer<span class="token punctuation">{</span>
-        <span class="token keyword">public</span><span class="token operator">:</span>
-            <span class="token function">WhitePlayer</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>name<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">void</span> <span class="token function">placeChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>在实现<code>placeChess</code>函数接口的时候，在棋盘上显示<code>白色棋子</code></p>
-<h3 id="四、下黑棋的玩家类设计"><a href="#四、下黑棋的玩家类设计" class="headerlink" title="四、下黑棋的玩家类设计"></a>四、下黑棋的玩家类设计</h3><pre class=" language-cpp"><code class="language-cpp">    <span class="token keyword">class</span> <span class="token class-name">BlackPlayer</span><span class="token operator">:</span><span class="token keyword">public</span> AbstractPlayer<span class="token punctuation">{</span>
-        <span class="token keyword">public</span><span class="token operator">:</span>
-            <span class="token function">BlackPlayer</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>name<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">bool</span> <span class="token function">placeChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>在实现<code>placeChess</code>函数接口的时候，在棋盘上显示<code>黑色棋子</code></p>
-<h3 id="五、任务"><a href="#五、任务" class="headerlink" title="五、任务"></a>五、任务</h3><p>实现玩家类、白色棋手类、黑色棋手类，并在棋盘上面显示玩家下的<code>黑白棋子</code>。</p>
+<p>这里的<code>Key是一个抽象类</code>，在具体的按键类中实现<code>operation</code>方法。<strong>只有在落子成功的时候，这个函数才会返回true, 其他情况都是返回false</strong>。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">UpKey</span><span class="token operator">:</span><span class="token keyword">public</span> Key<span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token keyword">bool</span> <span class="token function">operation</span><span class="token punctuation">(</span>Cursor <span class="token operator">&amp;</span>cursor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>UpKey类的<code>operation方法</code>对应的是<code>W</code>按键操作,将当前光标的y坐标向上移动,返回false;</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">DownKey</span><span class="token operator">:</span><span class="token keyword">public</span> Key<span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token keyword">bool</span> <span class="token function">operation</span><span class="token punctuation">(</span>Cursor <span class="token operator">&amp;</span>cursor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>DownKey类的<code>operation方法</code>对应的是<code>S</code>按键操作,将当前光标的y坐标向下移动,返回false;</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">LeftKey</span><span class="token operator">:</span><span class="token keyword">public</span> Key<span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token keyword">bool</span> <span class="token function">operation</span><span class="token punctuation">(</span>Cursor <span class="token operator">&amp;</span>cursor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>LeftKey类的<code>operation方法</code>对应的是<code>A</code>按键操作,将当前光标的x坐标向左移动,返回false;</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">RightKey</span><span class="token operator">:</span><span class="token keyword">public</span> Key<span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token keyword">bool</span> <span class="token function">operation</span><span class="token punctuation">(</span>Cursor <span class="token operator">&amp;</span>cursor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>RightKey类的<code>operation方法</code>对应的是<code>D</code>按键操作，将当前光标的x坐标向右移动,返回false;</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">PlayKey</span><span class="token operator">:</span><span class="token keyword">public</span> Key<span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token keyword">bool</span> <span class="token function">operation</span><span class="token punctuation">(</span>Cursor <span class="token operator">&amp;</span>cursor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>PlayKey类的<code>operation方法</code>对应的是<code>space</code>按键操作，返回玩家在<code>当前光标位置是否可以落子</code>。如果当前光标的位置没有棋子则可以落子返回true,否则不可以落子返回false。</p>
+<h3 id="五、任务"><a href="#五、任务" class="headerlink" title="五、任务"></a>五、任务</h3><p>设计一个Handle类，完成按下不同的按键，完成不同的动作。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Key.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Player.h"</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">Handle</span><span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token function">Handle</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">void</span> <span class="token function">addKey</span><span class="token punctuation">(</span>Key <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">void</span> <span class="token function">removeKey</span><span class="token punctuation">(</span><span class="token keyword">char</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">bool</span> <span class="token function">waitPlayerPlaceChess</span><span class="token punctuation">(</span>Player <span class="token operator">*</span>player<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span><span class="token operator">:</span>
+        map<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token punctuation">,</span>Key <span class="token operator">*</span><span class="token operator">></span> keyMap<span class="token punctuation">;</span>
+        Cursor cursor<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<ul>
+<li>keyMap    用来记录具体的按键</li>
+<li>cursor    用来记录当前光标的位置</li>
+<li>addKey    向keyMap中添加按键</li>
+<li>removeKey 从keyMap中移除按键</li>
+<li>waitPlayerPlaceChess 等待玩家输入，<code>判断玩家是否落子，如果是落子操作</code>，并且落子成功返回ture,如果是其他操作，返回false。</li>
+</ul>
 
             </div>
             <hr/>
@@ -631,7 +722,7 @@
                   property="dct:title" rel="dct:type">
                     《》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/10/26/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-si-ke/yi-wu-zi-qi-xiang-mu-zhi-wan-jia-dui-xiang-fen-xi/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/10/27/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-wu-ke/yi-wu-zi-qi-xiang-mu-fen-xi-zhi-an-jian-kong-zhi/" property="cc:attributionName"
                rel="cc:attributionURL">
                 XiaoBai Teacher
             </a> 采用
@@ -671,9 +762,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/10/27/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-wu-ke/yi-wu-zi-qi-xiang-mu-fen-xi-zhi-an-jian-kong-zhi/">
                     <div class="card-image">
@@ -694,9 +786,9 @@ A     向左移动,
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-27
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -713,6 +805,7 @@ A     向左移动,
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -731,10 +824,10 @@ A     向左移动,
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/10/05/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-san-ke/yi-wu-zi-qi-xiang-mu-fen-xi-zhi-qi-pan-dui-xiang/">
+                <a href="/2019/10/26/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-si-ke/yi-wu-zi-qi-xiang-mu-zhi-wan-jia-dui-xiang-fen-xi/">
                     <div class="card-image">
                         
-                        <img src="/medias/15700848644432/789.png" class="responsive-img" alt="">
+                        <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1572109821358&amp;di=d09ad819ecb597803901297c9cbec260&amp;imgtype=0&amp;src=http%3A%2F%2Fi0.letvimg.com%2Flc05_qmt%2F201706%2F23%2F11%2F35%2Fb44dc3ed-7205-44d2-8878-dfd671314f55.jpg" class="responsive-img" alt="">
                         
                         <span class="card-title"></span>
                     </div>
@@ -742,18 +835,19 @@ A     向左移动,
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一、五子棋项目分析之棋盘对象棋盘对象只有一个，我们可以使用单例模式来设计，它应该至少具备以下功能
+                            一、五子棋项目之玩家对象分析五子棋游戏中有两个玩家，一个玩家下黑旗，一个玩家下白旗。每个玩家至少包含以下成员:
 
-在屏幕上面显示棋盘
-存放棋子
-落子有效位置判定
+玩家的名字
+玩家下棋的棋子颜色
+在棋盘落子的方法
 
-二、在屏幕上面显示棋盘棋盘已经在ChessBoard.txt文件中存放，只需要将这个文件中
+
+注意:指定位置落子的方法，黑白棋手的实现应该不同。下黑旗的玩家在指定位置
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-05
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-26
                             </span>
                         <span class="publish-author">
                             
