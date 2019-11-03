@@ -2,6 +2,131 @@
 <search>
   <entry>
     <title></title>
+    <url>/2019/11/03/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-liu-ke/yi-wu-zi-qi-xiang-mu-zhi-shi-fou-ying-qi-qing-kuang-fen-xi/</url>
+    <content><![CDATA[<h3 id="一、五子棋项目之是否赢棋情况分析"><a href="#一、五子棋项目之是否赢棋情况分析" class="headerlink" title="一、五子棋项目之是否赢棋情况分析"></a>一、五子棋项目之是否赢棋情况分析</h3><p>每次玩家落子成功之后，都应该判断当前棋子是否可以构成五颗棋子连接在一起。判断的思路如下:<br><img src="/medias/15702573191377/judge.png" alt></p>
+<p>根据棋盘当前落下的棋子，判断它的<code>垂直方向，水平方向，上坡方向，下坡方向</code>是否有五颗棋子连接在一起。这里以<code>水平方向</code>为例，具体讲解一下判断思路:</p>
+<ul>
+<li>获取当前棋子在二维数组中的行号(每次落子的时候，让棋盘对象记录当前落子棋子所在的<code>行和列</code>)</li>
+<li>当前棋子的<code>左边</code>和当前棋子<code>一样</code>，则继续<code>向左</code>移动接着判断,直到判断的棋子个数到达<code>五个</code></li>
+<li>当前棋子的<code>左边</code>和当前棋子<code>不一样</code>，则结束判断</li>
+<li>当前棋子的<code>右边</code>和当前棋子<code>一样</code>，则继续<code>向右</code>移动接着判断，直到判断的棋子个数到达<code>五个</code></li>
+<li>当前棋子的<code>右边</code>和当前棋子<code>不一样</code>，则结束判断</li>
+</ul>
+<blockquote>
+<p><code>注意</code>:<br>由于所有的棋子都记录在棋盘对象里，所以我们只需要给棋盘对象提供<code>行、列、颜色</code>信息，它就可以判断 出这一行这一列的棋子颜色是否和给定的颜色相同。</p>
+</blockquote>
+<h3 id="二、修改棋盘类提供当前棋子的行和列"><a href="#二、修改棋盘类提供当前棋子的行和列" class="headerlink" title="二、修改棋盘类提供当前棋子的行和列"></a>二、修改棋盘类提供当前棋子的行和列</h3><p>   1.在棋盘类中添加当前行和列属性，并提供获当前取行和列的函数接口</p>
+<pre class=" language-c++"><code class="language-c++">    #include "Chess.h"
+    #define MAX_LINE   15
+    #define MAX_COLUMN 15
+
+    class ChessBoard
+    {
+       public:
+            ChessBoard(const string &filename = "ChessBoard.txt");
+            void show(void) const;
+            bool isVaildPostion(int line,int column);
+            void placeChess(Chess *chess);
+            int  getCurrentLine(void) const;
+            int  getCurrentColumn(void) const;
+
+        private:
+            string filename;
+            Chess *chess[MAX_LINE][MAX_COLUMN];
+            int curLine;
+            int curColumn;
+    };
+    ```
+    2.在`placeChess`函数中更新`curLine`和`curColumn`。
+    ```c++
+    #define LINE_INTERVAL   4
+    #define COLUMN_INTERVAL 2
+    void placeChess(Chess *chess)
+    {
+        int line      = chess->getY()/COLUMN_INTERVAL;
+        int column    = chess->getX()/LINE_INTERVAL;
+
+        chess[line][column] = chess;
+        chess->show();
+        curLine   = line;
+        curColumn = column;
+
+        return;
+    }</code></pre>
+<h3 id="三、修改棋盘类提供有效棋子判定"><a href="#三、修改棋盘类提供有效棋子判定" class="headerlink" title="三、修改棋盘类提供有效棋子判定"></a>三、修改棋盘类提供有效棋子判定</h3><p><img src="/medias/15702573191377/judge.png" alt></p>
+<p>这里的有效棋子应该满足以下条件：</p>
+<ul>
+<li>行号应该是[0 - 15），列号是[0 - 15）</li>
+<li>相应的行列位置不为NULL</li>
+<li>颜色应该和判定棋子的颜色一致</li>
+</ul>
+<pre class=" language-c++"><code class="language-c++">bool ChessBoard::isVaildColorChess(int lint,int column,const string &color)
+{
+    if(line < 0 || line > 15){
+        return false;
+    }
+
+    if(column < 0 || column > 15){
+        return false;
+    }
+
+    Chess *ch = chess[line][column];
+    if(ch == NULL){
+        return false;
+    }
+
+    if(ch->getColor() != color){
+        return false;
+    }
+
+    return true;
+}</code></pre>
+<h3 id="四、不同方向判断"><a href="#四、不同方向判断" class="headerlink" title="四、不同方向判断"></a>四、不同方向判断</h3><p>每次落子的时候，需要在水平、垂直、上坡、下坡四个方向判断是否有连续的五颗棋子。我们采用<code>策略设计模式</code>思想，将不同方向的判断在不同的类中完成。设计如下:</p>
+<ul>
+<li><ol>
+<li>设计一个抽象类<code>Direction</code></li>
+</ol>
+</li>
+</ul>
+<pre class=" language-c++"><code class="language-c++">    #include "ChessBoard.h"
+    class Direction{
+        public:
+            Direction(){
+                chessBoard = ChessBoard::getChessBoard();
+            }
+            virtual bool isWin(const string &color) = 0;
+            ChessBoard *chessBoard;
+    };</code></pre>
+<ul>
+<li><p>2.设计具体方向判断的类，让它继承<code>Direction</code>类</p>
+<p>这里以水平方向判断为例，设计一个<code>HorizontalDirection</code>,设计如下: </p>
+<pre class=" language-c++"><code class="language-c++"> class HorizontalDirection:public Direction{
+  public:
+      bool isWin(const string &color){
+          int   startLine   = chessBoard->getCurrentLine();
+          int   startColumn = chessBoard->getCurrentColumn();
+          int   totalCount  = countLeftChess(startLine,startColumn ,color ) +
+                              countRightChess(startLine,startColumn,color);
+          if(totalCount - 1 < 5){
+              return false;
+          }
+
+          return true;
+      }</code></pre>
+</li>
+</ul>
+<h3 id="五、任务"><a href="#五、任务" class="headerlink" title="五、任务"></a>五、任务</h3><p>实现垂直、上坡、下坡三个方向类的判断</p>
+]]></content>
+      <categories>
+        <category>C++语言</category>
+        <category>五子棋项目</category>
+      </categories>
+      <tags>
+        <tag>五子棋游戏</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
     <url>/2019/10/27/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-wu-ke/yi-wu-zi-qi-xiang-mu-fen-xi-zhi-an-jian-kong-zhi/</url>
     <content><![CDATA[<h3 id="一、五子棋项目分析之按键控制"><a href="#一、五子棋项目分析之按键控制" class="headerlink" title="一、五子棋项目分析之按键控制"></a>一、五子棋项目分析之按键控制</h3><p>在五子棋项目中，我们通过<code>W/A/S/D/Space</code>五个按键来做控制，这五个按键的功能如下:</p>
 <ul>
