@@ -506,10 +506,7 @@
 <span class="token punctuation">}</span></code></pre>
 <h3 id="四、不同方向判断"><a href="#四、不同方向判断" class="headerlink" title="四、不同方向判断"></a>四、不同方向判断</h3><p>每次落子的时候，需要在水平、垂直、上坡、下坡四个方向判断是否有连续的五颗棋子。我们采用<code>策略设计模式</code>思想，将不同方向的判断在不同的类中完成。设计如下:</p>
 <ul>
-<li><ol>
-<li>设计一个抽象类<code>Direction</code></li>
-</ol>
-</li>
+<li>1.设计一个抽象类<code>Direction</code></li>
 </ul>
 <pre class=" language-cpp"><code class="language-cpp">    <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"ChessBoard.h"</span></span>
     <span class="token keyword">class</span> <span class="token class-name">Direction</span><span class="token punctuation">{</span>
