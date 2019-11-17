@@ -483,27 +483,27 @@
 <li>相应的行列位置不为NULL</li>
 <li>颜色应该和判定棋子的颜色一致</li>
 </ul>
-<pre class=" language-c++"><code class="language-c++">bool ChessBoard::isVaildColorChess(int lint,int column,const string &color)
-{
-    if(line < 0 || line > 15){
-        return false;
-    }
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> ChessBoard<span class="token operator">::</span><span class="token function">isVaildColorChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> lint<span class="token punctuation">,</span><span class="token keyword">int</span> column<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>line <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> line <span class="token operator">></span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    if(column < 0 || column > 15){
-        return false;
-    }
+    <span class="token keyword">if</span><span class="token punctuation">(</span>column <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> column <span class="token operator">></span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    Chess *ch = chess[line][column];
-    if(ch == NULL){
-        return false;
-    }
+    Chess <span class="token operator">*</span>ch <span class="token operator">=</span> chess<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>ch <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    if(ch->getColor() != color){
-        return false;
-    }
+    <span class="token keyword">if</span><span class="token punctuation">(</span>ch<span class="token operator">-</span><span class="token operator">></span><span class="token function">getColor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> color<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    return true;
-}</code></pre>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <h3 id="四、不同方向判断"><a href="#四、不同方向判断" class="headerlink" title="四、不同方向判断"></a>四、不同方向判断</h3><p>每次落子的时候，需要在水平、垂直、上坡、下坡四个方向判断是否有连续的五颗棋子。我们采用<code>策略设计模式</code>思想，将不同方向的判断在不同的类中完成。设计如下:</p>
 <ul>
 <li><ol>
@@ -523,19 +523,19 @@
 <ul>
 <li><p>2.设计具体方向判断的类，让它继承<code>Direction</code>类</p>
 <p>这里以水平方向判断为例，设计一个<code>HorizontalDirection</code>,设计如下: </p>
-<pre class=" language-c++"><code class="language-c++"> class HorizontalDirection:public Direction{
-  public:
-      bool isWin(const string &color){
-          int   startLine   = chessBoard->getCurrentLine();
-          int   startColumn = chessBoard->getCurrentColumn();
-          int   totalCount  = countLeftChess(startLine,startColumn ,color ) +
-                              countRightChess(startLine,startColumn,color);
-          if(totalCount - 1 < 5){
-              return false;
-          }
+<pre class=" language-cpp"><code class="language-cpp"> <span class="token keyword">class</span> <span class="token class-name">HorizontalDirection</span><span class="token operator">:</span><span class="token keyword">public</span> Direction<span class="token punctuation">{</span>
+  <span class="token keyword">public</span><span class="token operator">:</span>
+      <span class="token keyword">bool</span> <span class="token function">isWin</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">int</span>   startLine   <span class="token operator">=</span> chessBoard<span class="token operator">-</span><span class="token operator">></span><span class="token function">getCurrentLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">int</span>   startColumn <span class="token operator">=</span> chessBoard<span class="token operator">-</span><span class="token operator">></span><span class="token function">getCurrentColumn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">int</span>   totalCount  <span class="token operator">=</span> <span class="token function">countLeftChess</span><span class="token punctuation">(</span>startLine<span class="token punctuation">,</span>startColumn <span class="token punctuation">,</span>color <span class="token punctuation">)</span> <span class="token operator">+</span>
+                              <span class="token function">countRightChess</span><span class="token punctuation">(</span>startLine<span class="token punctuation">,</span>startColumn<span class="token punctuation">,</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span>totalCount <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
 
-          return true;
-      }</code></pre>
+          <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span></code></pre>
 </li>
 </ul>
 <h3 id="五、任务"><a href="#五、任务" class="headerlink" title="五、任务"></a>五、任务</h3><p>实现垂直、上坡、下坡三个方向类的判断</p>
