@@ -85,15 +85,15 @@
 </ol>
 </li>
 </ul>
-<pre class=" language-c++"><code class="language-c++">    #include "ChessBoard.h"
-    class Direction{
-        public:
-            Direction(){
-                chessBoard = ChessBoard::getChessBoard();
-            }
-            virtual bool isWin(const string &color) = 0;
-            ChessBoard *chessBoard;
-    };</code></pre>
+<pre class=" language-cpp"><code class="language-cpp">    <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"ChessBoard.h"</span></span>
+    <span class="token keyword">class</span> <span class="token class-name">Direction</span><span class="token punctuation">{</span>
+        <span class="token keyword">public</span><span class="token operator">:</span>
+            <span class="token function">Direction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                chessBoard <span class="token operator">=</span> ChessBoard<span class="token operator">::</span><span class="token function">getChessBoard</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">virtual</span> <span class="token keyword">bool</span> <span class="token function">isWin</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            ChessBoard <span class="token operator">*</span>chessBoard<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <ul>
 <li><p>2.设计具体方向判断的类，让它继承<code>Direction</code>类</p>
 <p>这里以水平方向判断为例，设计一个<code>HorizontalDirection</code>,设计如下: </p>
