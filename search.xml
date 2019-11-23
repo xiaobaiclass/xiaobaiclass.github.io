@@ -245,6 +245,37 @@
   </entry>
   <entry>
     <title></title>
+    <url>/2019/11/02/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-jiu-ke/wu-zi-qi-you-xi-zhi-you-xi-dui-xiang/</url>
+    <content><![CDATA[<h3 id="一、五子棋游戏对象设计"><a href="#一、五子棋游戏对象设计" class="headerlink" title="一、五子棋游戏对象设计"></a>一、五子棋游戏对象设计</h3><p>整个五子棋游戏中有如下对象:</p>
+<ul>
+<li>棋盘对象</li>
+<li>下白色棋子的棋手对象</li>
+<li>下黑色棋子的棋手对象</li>
+<li>处理按键的Handle对象</li>
+<li>进行仲裁的裁判对象</li>
+</ul>
+<p>前面的代码中，这些对象的创建都是在<code>main函数</code>中创建的，不符合面向对象的设计原则，这里我们设计一个<code>游戏对象</code>，让这个游戏对象来创建这些对象。</p>
+<h3 id="二、五子棋游戏对象类的设计"><a href="#二、五子棋游戏对象类的设计" class="headerlink" title="二、五子棋游戏对象类的设计"></a>二、五子棋游戏对象类的设计</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Gobang</span><span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token function">Gobang</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>whitePlayerName<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>blackPlayerName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">~</span><span class="token function">Gobang</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span><span class="token operator">:</span>
+        Handle <span class="token operator">*</span>handle<span class="token punctuation">;</span>
+        Player <span class="token operator">*</span>player<span class="token punctuation">;</span>
+        Arbitration <span class="token operator">*</span>arbitration<span class="token punctuation">;</span>
+        ChessBoard <span class="token operator">*</span>chessBoard<span class="token punctuation">;</span></code></pre>
+<p>成员函数功能如下:</p>
+<ul>
+<li>构造函数<code>Gobang()</code>完成五子棋游戏涉及到的对象创建</li>
+<li>析构函数<code>~Gobang()</code>完成五子棋游戏涉及到的对象销毁</li>
+<li>成员函数<code>run()</code>方法完成整个游戏的逻辑控制</li>
+</ul>
+<h3 id="三、任务"><a href="#三、任务" class="headerlink" title="三、任务"></a>三、任务</h3><p>实现<code>Gobang</code>游戏类，创建游戏对象，完成黑白棋手对弈</p>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
     <url>/2019/10/27/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-wu-ke/yi-wu-zi-qi-xiang-mu-fen-xi-zhi-an-jian-kong-zhi/</url>
     <content><![CDATA[<h3 id="一、五子棋项目分析之按键控制"><a href="#一、五子棋项目分析之按键控制" class="headerlink" title="一、五子棋项目分析之按键控制"></a>一、五子棋项目分析之按键控制</h3><p>在五子棋项目中，我们通过<code>W/A/S/D/Space</code>五个按键来做控制，这五个按键的功能如下:</p>
 <ul>
