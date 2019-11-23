@@ -5,16 +5,9 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="小白课堂">
-    <meta name="description" content="一、五子棋项目之裁判对象分析
-给出当前可以落子的棋手是谁
-判断当前在棋盘上落子的棋子是否构成了五颗相同的棋子（赢棋）
-显示获得胜利的棋手
-
-设计如下:
-class Arbitration{
-
-public:
-        Arbitrat">
+    <meta name="description" content="一、五子棋项目之显示获胜玩家游戏中给出的获胜玩家显示如下:
+这个显示界面由两个矩形构成，第二个矩形实际上是将第一个矩形的左上角坐标向右和向下做了偏移，大小并没有改变。背景颜色是通过VT100控制码来显示的。
+二、绘制矩形修改VT100的类，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -270,7 +263,7 @@ public:
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573993082197&di=c460adf240759adb11e5279233639ee8&imgtype=0&src=http%3A%2F%2Fpic.nipic.com%2F2008-07-31%2F200873114560139_2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('media/15703337373585/winner.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -437,81 +430,31 @@ public:
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="一、五子棋项目之裁判对象分析"><a href="#一、五子棋项目之裁判对象分析" class="headerlink" title="一、五子棋项目之裁判对象分析"></a>一、五子棋项目之裁判对象分析</h3><ul>
-<li>给出当前可以落子的棋手是谁</li>
-<li>判断当前在棋盘上落子的棋子是否构成了五颗相同的棋子（赢棋）</li>
-<li>显示获得胜利的棋手</li>
-</ul>
-<p>设计如下:</p>
-<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Arbitration</span><span class="token punctuation">{</span>
-
-<span class="token keyword">public</span><span class="token operator">:</span>
-        <span class="token function">Arbitration</span><span class="token punctuation">(</span>Player <span class="token operator">*</span>whitePlayer<span class="token punctuation">,</span>Player <span class="token operator">*</span>blackPlayer<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">bool</span> <span class="token function">isWin</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Player <span class="token operator">*</span><span class="token function">getNextPlayer</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span> <span class="token function">showWinner</span><span class="token punctuation">(</span><span class="token keyword">const</span> Player <span class="token operator">*</span>player<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">private</span><span class="token operator">:</span>
-        Player <span class="token operator">*</span>player<span class="token punctuation">;</span>
-        Player <span class="token operator">*</span>whitePlayer<span class="token punctuation">;</span>
-        Player <span class="token operator">*</span>blackPlayer<span class="token punctuation">;</span>
-        vector<span class="token operator">&lt;</span>Direction <span class="token operator">*</span><span class="token operator">></span> directionVector<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<ul>
-<li>Arbitration     初始化属性成员</li>
-<li>isWin           判断当前颜色是否赢棋</li>
-<li>getNextPlayer   获得下一次落子的棋手</li>
-<li>showWinner      显示获得胜利的棋手</li>
-<li>player          记录当前落子的棋手</li>
-<li>whitePlayer     记录白棋玩家</li>
-<li>blackPlayer     记录黑棋玩家</li>
-<li>directionVector 记录每个方向判断的对象</li>
-</ul>
-<h3 id="二、初始化属性成员"><a href="#二、初始化属性成员" class="headerlink" title="二、初始化属性成员"></a>二、初始化属性成员</h3><pre class=" language-cpp"><code class="language-cpp"> Arbitration<span class="token operator">::</span><span class="token function">Arbitration</span><span class="token punctuation">(</span>Player <span class="token operator">*</span>whitePlayer<span class="token punctuation">,</span>Player <span class="token operator">*</span>blackPlayer<span class="token punctuation">)</span>
- <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>whitePlayer <span class="token operator">=</span> whitePlayer<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span>blackPlayer <span class="token operator">=</span> blackPlayer<span class="token punctuation">;</span>
-        directionVector<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token keyword">new</span> VerticalDirection<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        directionVector<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token keyword">new</span> HorizontalDirection<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        directionVector<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token keyword">new</span> UphillDirection<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        directionVector<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token keyword">new</span> DownhillDirection<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        player <span class="token operator">=</span> whitePlayer<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>由于每次都需要在不同方向上判断是否有五颗相同的棋子，这里我们将每个方向上的<code>判断对象</code>存放在<code>vector</code>容器里面，需要的时候只需要遍历<code>vector</code>容器就可以了。初始化的时候，默认<code>白色棋手先落子</code>。</p>
-<h3 id="三、判断当前颜色棋子是否赢棋"><a href="#三、判断当前颜色棋子是否赢棋" class="headerlink" title="三、判断当前颜色棋子是否赢棋"></a>三、判断当前颜色棋子是否赢棋</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> Arbitration<span class="token operator">::</span><span class="token function">isWin</span><span class="token punctuation">(</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span>
+                <h3 id="一、五子棋项目之显示获胜玩家"><a href="#一、五子棋项目之显示获胜玩家" class="headerlink" title="一、五子棋项目之显示获胜玩家"></a>一、五子棋项目之显示获胜玩家</h3><p>游戏中给出的获胜玩家显示如下:<br><img src="media/15703337373585/winner.png" alt></p>
+<p>这个显示界面由<code>两个矩形构成</code>，第二个矩形实际上是将第一个矩形的<code>左上角坐标向右和向下做了偏移</code>，大小并没有改变。背景颜色是通过<code>VT100控制码</code>来显示的。</p>
+<h3 id="二、绘制矩形"><a href="#二、绘制矩形" class="headerlink" title="二、绘制矩形"></a>二、绘制矩形</h3><p>修改VT100的类，添加一个绘制矩形的方法。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">void</span> VT100<span class="token operator">::</span><span class="token function">drawRectangle</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">,</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> height<span class="token punctuation">,</span><span class="token keyword">int</span> backgroundColor<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">bool</span> state <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> directionVector<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i <span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">bool</span> ok <span class="token operator">=</span> directionVector<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">isWin</span><span class="token punctuation">(</span>color<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>ok<span class="token punctuation">)</span><span class="token punctuation">{</span>
-            state <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
+   <span class="token function">setCursorPostion</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> height<span class="token punctuation">;</span>i <span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>j <span class="token operator">&lt;</span> width<span class="token punctuation">;</span>j <span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span><span class="token string">"\033[%dm \033[0m"</span><span class="token punctuation">,</span>backgroundColor<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
+        <span class="token function">setCursorPostion</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-
-    <span class="token keyword">return</span> state<span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>这里只需要遍历<code>directionVector</code>，获取每个方向的上面的判断对象，调用<code>isWin</code>方法判断给定颜色棋子是否赢棋就可以了。</p>
-<h3 id="四、获得下一次落子的棋手"><a href="#四、获得下一次落子的棋手" class="headerlink" title="四、获得下一次落子的棋手"></a>四、获得下一次落子的棋手</h3><pre class=" language-cpp"><code class="language-cpp">Player <span class="token operator">*</span>Arbitration<span class="token operator">::</span><span class="token function">getNextPlayer</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>player <span class="token operator">==</span> whitePlayer<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        player <span class="token operator">=</span> blackPlayer<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
-        player <span class="token operator">=</span> whitePlayer<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">return</span> player<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>每次调用的时候，判断如果当前棋手是白棋手则返回黑棋手，如果当前是黑棋手，则返回白棋手。</p>
-<h3 id="五、显示获胜玩家"><a href="#五、显示获胜玩家" class="headerlink" title="五、显示获胜玩家"></a>五、显示获胜玩家</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">void</span> Arbitration<span class="token operator">::</span><span class="token function">showWinner</span><span class="token punctuation">(</span><span class="token keyword">const</span> Player <span class="token operator">*</span>player<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    VT100<span class="token operator">::</span><span class="token function">showWinner</span><span class="token punctuation">(</span> MAX_X <span class="token operator">+</span> <span class="token number">10</span><span class="token punctuation">,</span>MAX_Y<span class="token operator">/</span><span class="token number">2</span> <span class="token operator">-</span> <span class="token number">7</span><span class="token punctuation">,</span>player<span class="token operator">-</span><span class="token operator">></span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                       player<span class="token operator">-</span><span class="token operator">></span><span class="token function">getChessColor</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-                      <span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>获取选手的名字和棋子颜色,然后通过VT100输出。</p>
-<h3 id="六、任务"><a href="#六、任务" class="headerlink" title="六、任务"></a>六、任务</h3><p>实现裁判类，并能正确判断出获胜的选手。</p>
+<p>思路如下:</p>
+<ul>
+<li>先将光标定位到指定的x,y坐标位置</li>
+<li>外层循环控制矩形的高度</li>
+<li>内存循环输出<code>空格</code>填充矩形</li>
+<li>每输出一行的时候，就将y的坐标更新一下，进行下一行的输出</li>
+</ul>
+<h3 id="三、输出层叠的矩形"><a href="#三、输出层叠的矩形" class="headerlink" title="三、输出层叠的矩形"></a>三、输出层叠的矩形</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token function">drawRectangle</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token number">42</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">drawRectangle</span><span class="token punctuation">(</span>x <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">,</span>y <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token number">47</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>绘制完第一个矩形之后，把x，y坐标改变一下绘制第二个矩形</p>
+<h3 id="四、任务"><a href="#四、任务" class="headerlink" title="四、任务"></a>四、任务</h3><p>实现五子棋游戏中棋手在获胜的时候，显示选手姓名和棋子颜色</p>
 
             </div>
             <hr/>
@@ -673,7 +616,7 @@ public:
                   property="dct:title" rel="dct:type">
                     《》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/11/17/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-qi-ke/wu-zi-qi-you-xi-zhi-cai-pan-dui-xiang/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/11/17/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-ba-ke/wu-zi-qi-xiang-mu-zhi-xian-shi-huo-sheng-wan-jia/" property="cc:attributionName"
                rel="cc:attributionURL">
                 XiaoBai Teacher
             </a> 采用
@@ -713,10 +656,9 @@ public:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/2019/11/17/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-qi-ke/wu-zi-qi-you-xi-zhi-cai-pan-dui-xiang/">
                     <div class="card-image">
@@ -742,9 +684,9 @@ public:
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-17
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-17
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -761,7 +703,6 @@ public:
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -780,10 +721,10 @@ public:
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/11/17/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-ba-ke/wu-zi-qi-xiang-mu-zhi-xian-shi-huo-sheng-wan-jia/">
+                <a href="/2019/11/03/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-liu-ke/yi-wu-zi-qi-xiang-mu-zhi-shi-fou-ying-qi-qing-kuang-fen-xi/">
                     <div class="card-image">
                         
-                        <img src="media/15703337373585/winner.png" class="responsive-img" alt="">
+                        <img src="/medias/15702573191377/judge.png" class="responsive-img" alt="">
                         
                         <span class="card-title"></span>
                     </div>
@@ -791,14 +732,13 @@ public:
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一、五子棋项目之显示获胜玩家游戏中给出的获胜玩家显示如下:
-这个显示界面由两个矩形构成，第二个矩形实际上是将第一个矩形的左上角坐标向右和向下做了偏移，大小并没有改变。背景颜色是通过VT100控制码来显示的。
-二、绘制矩形修改VT100的类，
+                            一、五子棋项目之是否赢棋情况分析每次玩家落子成功之后，都应该判断当前棋子是否可以构成五颗棋子连接在一起。判断的思路如下:
+根据棋盘当前落下的棋子，判断它的垂直方向，水平方向，上坡方向，下坡方向是否有五颗棋子连接在一起。这里以水平方向为例，具
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-17
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-03
                             </span>
                         <span class="publish-author">
                             
