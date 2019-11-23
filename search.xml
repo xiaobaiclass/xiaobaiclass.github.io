@@ -2,6 +2,43 @@
 <search>
   <entry>
     <title></title>
+    <url>/2019/11/23/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-ba-ke/wu-zi-qi-xiang-mu-zhi-xian-shi-huo-sheng-wan-jia/</url>
+    <content><![CDATA[<h3 id="一、五子棋项目之显示获胜玩家"><a href="#一、五子棋项目之显示获胜玩家" class="headerlink" title="一、五子棋项目之显示获胜玩家"></a>一、五子棋项目之显示获胜玩家</h3><p>游戏中给出的获胜玩家显示如下:<br><img src="/medias/15703337373585/winner.png" alt></p>
+<p>这个显示界面由<code>两个矩形构成</code>，第二个矩形实际上是将第一个矩形的<code>左上角坐标向右和向下做了偏移</code>，大小并没有改变。背景颜色是通过<code>VT100控制码</code>来显示的。</p>
+<h3 id="二、绘制矩形"><a href="#二、绘制矩形" class="headerlink" title="二、绘制矩形"></a>二、绘制矩形</h3><p>修改VT100的类，添加一个绘制矩形的方法。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">void</span> VT100<span class="token operator">::</span><span class="token function">drawRectangle</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">,</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> height<span class="token punctuation">,</span><span class="token keyword">int</span> backgroundColor<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+   <span class="token function">setCursorPostion</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> height<span class="token punctuation">;</span>i <span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>j <span class="token operator">&lt;</span> width<span class="token punctuation">;</span>j <span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span><span class="token string">"\033[%dm \033[0m"</span><span class="token punctuation">,</span>backgroundColor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">setCursorPostion</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>思路如下:</p>
+<ul>
+<li>先将光标定位到指定的x,y坐标位置</li>
+<li>外层循环控制矩形的高度</li>
+<li>内存循环输出<code>空格</code>填充矩形</li>
+<li>每输出一行的时候，就将y的坐标更新一下，进行下一行的输出</li>
+</ul>
+<h3 id="三、输出层叠的矩形"><a href="#三、输出层叠的矩形" class="headerlink" title="三、输出层叠的矩形"></a>三、输出层叠的矩形</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token function">drawRectangle</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token number">42</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">drawRectangle</span><span class="token punctuation">(</span>x <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">,</span>y <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token number">47</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>绘制完第一个矩形之后，把x，y坐标改变一下绘制第二个矩形</p>
+<h3 id="四、任务"><a href="#四、任务" class="headerlink" title="四、任务"></a>四、任务</h3><p>实现五子棋游戏中棋手在获胜的时候，显示选手姓名和棋子颜色</p>
+]]></content>
+      <categories>
+        <category>C++语言</category>
+        <category>五子棋项目</category>
+      </categories>
+      <tags>
+        <tag>五子棋游戏</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
     <url>/2019/11/17/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-qi-ke/wu-zi-qi-you-xi-zhi-cai-pan-dui-xiang/</url>
     <content><![CDATA[<h3 id="一、五子棋项目之裁判对象分析"><a href="#一、五子棋项目之裁判对象分析" class="headerlink" title="一、五子棋项目之裁判对象分析"></a>一、五子棋项目之裁判对象分析</h3><ul>
 <li>给出当前可以落子的棋手是谁</li>
@@ -78,43 +115,6 @@
 <span class="token punctuation">}</span></code></pre>
 <p>获取选手的名字和棋子颜色,然后通过VT100输出。</p>
 <h3 id="六、任务"><a href="#六、任务" class="headerlink" title="六、任务"></a>六、任务</h3><p>实现裁判类，并能正确判断出获胜的选手。</p>
-]]></content>
-      <categories>
-        <category>C++语言</category>
-        <category>五子棋项目</category>
-      </categories>
-      <tags>
-        <tag>五子棋游戏</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2019/11/17/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-ba-ke/wu-zi-qi-xiang-mu-zhi-xian-shi-huo-sheng-wan-jia/</url>
-    <content><![CDATA[<h3 id="一、五子棋项目之显示获胜玩家"><a href="#一、五子棋项目之显示获胜玩家" class="headerlink" title="一、五子棋项目之显示获胜玩家"></a>一、五子棋项目之显示获胜玩家</h3><p>游戏中给出的获胜玩家显示如下:<br><img src="media/15703337373585/winner.png" alt></p>
-<p>这个显示界面由<code>两个矩形构成</code>，第二个矩形实际上是将第一个矩形的<code>左上角坐标向右和向下做了偏移</code>，大小并没有改变。背景颜色是通过<code>VT100控制码</code>来显示的。</p>
-<h3 id="二、绘制矩形"><a href="#二、绘制矩形" class="headerlink" title="二、绘制矩形"></a>二、绘制矩形</h3><p>修改VT100的类，添加一个绘制矩形的方法。</p>
-<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">void</span> VT100<span class="token operator">::</span><span class="token function">drawRectangle</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">,</span><span class="token keyword">int</span> width<span class="token punctuation">,</span><span class="token keyword">int</span> height<span class="token punctuation">,</span><span class="token keyword">int</span> backgroundColor<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-   <span class="token function">setCursorPostion</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span> 
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> height<span class="token punctuation">;</span>i <span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>j <span class="token operator">&lt;</span> width<span class="token punctuation">;</span>j <span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span><span class="token string">"\033[%dm \033[0m"</span><span class="token punctuation">,</span>backgroundColor<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token function">setCursorPostion</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>思路如下:</p>
-<ul>
-<li>先将光标定位到指定的x,y坐标位置</li>
-<li>外层循环控制矩形的高度</li>
-<li>内存循环输出<code>空格</code>填充矩形</li>
-<li>每输出一行的时候，就将y的坐标更新一下，进行下一行的输出</li>
-</ul>
-<h3 id="三、输出层叠的矩形"><a href="#三、输出层叠的矩形" class="headerlink" title="三、输出层叠的矩形"></a>三、输出层叠的矩形</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token function">drawRectangle</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token number">42</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">drawRectangle</span><span class="token punctuation">(</span>x <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">,</span>y <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token number">47</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>绘制完第一个矩形之后，把x，y坐标改变一下绘制第二个矩形</p>
-<h3 id="四、任务"><a href="#四、任务" class="headerlink" title="四、任务"></a>四、任务</h3><p>实现五子棋游戏中棋手在获胜的时候，显示选手姓名和棋子颜色</p>
 ]]></content>
       <categories>
         <category>C++语言</category>

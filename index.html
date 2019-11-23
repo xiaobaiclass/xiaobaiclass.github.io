@@ -423,10 +423,10 @@ $(function () {
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2019/11/17/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-qi-ke/wu-zi-qi-you-xi-zhi-cai-pan-dui-xiang/">
+                    <a href="/2019/11/23/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-ba-ke/wu-zi-qi-xiang-mu-zhi-xian-shi-huo-sheng-wan-jia/">
                         <div class="card-image">
                             
-                            <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1573993082197&amp;di=c460adf240759adb11e5279233639ee8&amp;imgtype=0&amp;src=http%3A%2F%2Fpic.nipic.com%2F2008-07-31%2F200873114560139_2.jpg" class="responsive-img" alt="">
+                            <img src="/medias/15703337373585/winner.png" class="responsive-img" alt="">
                             
                             <span class="card-title"></span>
                         </div>
@@ -435,21 +435,14 @@ $(function () {
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、五子棋项目之裁判对象分析
-给出当前可以落子的棋手是谁
-判断当前在棋盘上落子的棋子是否构成了五颗相同的棋子（赢棋）
-显示获得胜利的棋手
-
-设计如下:
-class Arbitration{
-
-public:
-        Arbitrat
+                                一、五子棋项目之显示获胜玩家游戏中给出的获胜玩家显示如下:
+这个显示界面由两个矩形构成，第二个矩形实际上是将第一个矩形的左上角坐标向右和向下做了偏移，大小并没有改变。背景颜色是通过VT100控制码来显示的。
+二、绘制矩形修改VT100的类，
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-17
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-23
                             </span>
                             <span class="publish-author">
                                 
@@ -482,10 +475,10 @@ public:
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2019/11/17/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-ba-ke/wu-zi-qi-xiang-mu-zhi-xian-shi-huo-sheng-wan-jia/">
+                    <a href="/2019/11/17/c-yu-yan/wu-zi-qi-xiang-mu/wu-zi-qi-xiang-mu-di-qi-ke/wu-zi-qi-you-xi-zhi-cai-pan-dui-xiang/">
                         <div class="card-image">
                             
-                            <img src="media/15703337373585/winner.png" class="responsive-img" alt="">
+                            <img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1573993082197&amp;di=c460adf240759adb11e5279233639ee8&amp;imgtype=0&amp;src=http%3A%2F%2Fpic.nipic.com%2F2008-07-31%2F200873114560139_2.jpg" class="responsive-img" alt="">
                             
                             <span class="card-title"></span>
                         </div>
@@ -494,9 +487,16 @@ public:
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                一、五子棋项目之显示获胜玩家游戏中给出的获胜玩家显示如下:
-这个显示界面由两个矩形构成，第二个矩形实际上是将第一个矩形的左上角坐标向右和向下做了偏移，大小并没有改变。背景颜色是通过VT100控制码来显示的。
-二、绘制矩形修改VT100的类，
+                                一、五子棋项目之裁判对象分析
+给出当前可以落子的棋手是谁
+判断当前在棋盘上落子的棋子是否构成了五颗相同的棋子（赢棋）
+显示获得胜利的棋手
+
+设计如下:
+class Arbitration{
+
+public:
+        Arbitrat
                             
                         </div>
                         <div class="publish-info">
