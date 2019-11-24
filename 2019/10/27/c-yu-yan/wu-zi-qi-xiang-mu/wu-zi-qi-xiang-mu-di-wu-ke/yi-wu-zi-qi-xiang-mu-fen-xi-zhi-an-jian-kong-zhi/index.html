@@ -501,7 +501,7 @@ A">
             <span class="token keyword">int</span> x<span class="token punctuation">;</span>
             <span class="token keyword">int</span> y<span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<h3 id="四、按键类设计"><a href="#四、按键类设计" class="headerlink" title="四、按键类设计"></a>四、按键类设计</h3><p>前面我们通过<code>switch-case</code>的形式处理<code>w/a/s/d/space</code>按键，每个按键按下的时候，需要做的事情是不一样的。我们也应该考虑到在后期的时候，可能还需要其他按键以适应其他的功能。例如:按下某个按键进行毁棋操作。这样我们还需要修改代码在<code>switch-case</code>语句，添加新的按键，这很明显不符号软件设计的<code>开闭原则</code>。</p>
+<h3 id="四、按键类设计"><a href="#四、按键类设计" class="headerlink" title="四、按键类设计"></a>四、按键类设计</h3><p>前面我们通过<code>switch-case</code>的形式处理<code>w/a/s/d/space</code>按键，每个按键按下的时候，需要做的事情是不一样的。我们也应该考虑到在后期的时候，可能还需要其他按键以适应其他的功能。例如:按下某个按键进行悔棋操作。这样我们还需要修改代码在<code>switch-case</code>语句，添加新的按键，这很明显不符号软件设计的<code>开闭原则</code>。</p>
 <p>这里我们使用<code>策略设计模式</code>的思想，将每个按键需要做的事情在对应的类中实现，这样在后期添加新的按键的时候，我们只需要添加一个新的按键类就可以了，而不需要修改以前的代码。设计如下:</p>
 <p><img src="/medias/15701657445284/abc.png" alt></p>
 <pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Key</span><span class="token punctuation">{</span>
