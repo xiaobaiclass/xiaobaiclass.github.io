@@ -476,8 +476,7 @@
         curColumn <span class="token operator">=</span> column<span class="token punctuation">;</span>   
         <span class="token keyword">return</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span></code></pre>
-<h3 id="三、修改棋盘类提供有效棋子判定"><a href="#三、修改棋盘类提供有效棋子判定" class="headerlink" title="三、修改棋盘类提供有效棋子判定"></a>三、修改棋盘类提供有效棋子判定</h3><p><img src="/medias/15702573191377/judge.png" alt></p>
-<p>这里的有效棋子应该满足以下条件：</p>
+<h3 id="三、修改棋盘类提供有效棋子判定"><a href="#三、修改棋盘类提供有效棋子判定" class="headerlink" title="三、修改棋盘类提供有效棋子判定"></a>三、修改棋盘类提供有效棋子判定</h3><p>这里的有效棋子应该满足以下条件：</p>
 <ul>
 <li>行号应该是[0 - 15），列号是[0 - 15）</li>
 <li>相应的行列位置不为NULL</li>
@@ -532,7 +531,39 @@
           <span class="token punctuation">}</span>
 
           <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span></code></pre>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">int</span> <span class="token function">countLeftChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> line<span class="token punctuation">,</span><span class="token keyword">int</span> column<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+          <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+          <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span>i <span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>chessBoard<span class="token operator">-</span><span class="token operator">></span><span class="token function">isVaildChess</span><span class="token punctuation">(</span>line<span class="token punctuation">,</span>column<span class="token punctuation">,</span>color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                  <span class="token keyword">break</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
+              count <span class="token operator">++</span><span class="token punctuation">;</span>
+              column <span class="token operator">--</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+
+          <span class="token keyword">return</span> count<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">int</span> <span class="token function">countRightChess</span><span class="token punctuation">(</span><span class="token keyword">int</span> line<span class="token punctuation">,</span><span class="token keyword">int</span> column<span class="token punctuation">,</span><span class="token keyword">const</span> string <span class="token operator">&amp;</span>color<span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+          <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+          <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span>i <span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+              <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>chessBoard<span class="token operator">-</span><span class="token operator">></span><span class="token function">isVaildChess</span><span class="token punctuation">(</span>line<span class="token punctuation">,</span>column<span class="token punctuation">,</span>color<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                  <span class="token keyword">break</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
+              count <span class="token operator">++</span><span class="token punctuation">;</span>
+              column <span class="token operator">++</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+
+          <span class="token keyword">return</span> count<span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>    
+</code></pre>
 </li>
 </ul>
 <h3 id="五、任务"><a href="#五、任务" class="headerlink" title="五、任务"></a>五、任务</h3><p>实现垂直、上坡、下坡三个方向类的判断</p>
